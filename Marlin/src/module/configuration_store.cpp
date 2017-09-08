@@ -187,6 +187,10 @@ MarlinSettings settings;
 
 #include "../gcode/parser.h"
 
+#if HAS_LEVELING
+  #include "../feature/bedlevel/bedlevel.h"
+#endif
+
 #if HAS_BED_PROBE
   #include "../module/probe.h"
 #endif
@@ -197,14 +201,6 @@ MarlinSettings settings;
 
 #if ENABLED(FWRETRACT)
   #include "../feature/fwretract.h"
-#endif
-
-#if ENABLED(AUTO_BED_LEVELING_BILINEAR)
-  extern void refresh_bed_level();
-#endif
-
-#if ENABLED(FWRETRACT)
-  #include "../gcode/feature/fwretract/fwretract.h"
 #endif
 
 /**
