@@ -358,8 +358,6 @@ void quickstop_stepper() {
   SYNC_PLAN_POSITION_KINEMATIC();
 }
 
-#include "gcode/feature/caselight/M355.h"
-
 #if ENABLED(MIXING_EXTRUDER)
   #include "gcode/feature/mixing/M163.h"
   #if MIXING_VIRTUAL_TOOLS > 1

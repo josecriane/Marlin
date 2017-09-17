@@ -20,16 +20,20 @@
  *
  */
 
+#include "../../gcode.h"
+
+#include "../../../inc/MarlinConfig.h"
+
 #if HAS_CASE_LIGHT
+
+  #include "../../../feature/caselight.h"
 
   #ifndef INVERT_CASE_LIGHT
     #define INVERT_CASE_LIGHT false
   #endif
-  int case_light_brightness;  // LCD routine wants INT
-  bool case_light_on;
 
   void update_case_light() {
-    pinMode(CASE_LIGHT_PIN, OUTPUT); // digitalWrite doesn't set the port mode
+    SET_OUTPUT(CASE_LIGHT_PIN);
     uint8_t case_light_bright = (uint8_t)case_light_brightness;
     if (case_light_on) {
       if (USEABLE_HARDWARE_PWM(CASE_LIGHT_PIN)) {
@@ -54,7 +58,7 @@
  *   M355 P200 S0 turns off the light & sets the brightness level
  *   M355 S1 turns on the light with a brightness of 200 (assuming a PWM pin)
  */
-void gcode_M355() {
+void GcodeSuite::M355() {
   #if HAS_CASE_LIGHT
     uint8_t args = 0;
     if (parser.seenval('P')) ++args, case_light_brightness = parser.value_byte();
