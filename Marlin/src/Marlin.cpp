@@ -54,10 +54,6 @@
   #include "libs/buzzer.h"
 #endif
 
-#if (ENABLED(SWITCHING_EXTRUDER) && !DONT_SWITCH) || ENABLED(SWITCHING_NOZZLE)
-  #include "module/tool_change.h"
-#endif
-
 #if ENABLED(DIGIPOT_I2C)
   #include "feature/digipot/digipot.h"
 #endif
@@ -132,6 +128,10 @@
 
 #if ENABLED(TEMP_STAT_LEDS)
   #include "feature/leds/tempstat.h"
+#endif
+
+#if (ENABLED(SWITCHING_EXTRUDER) && !DONT_SWITCH) || ENABLED(SWITCHING_NOZZLE)
+  #include "module/tool_change.h"
 #endif
 
 bool Running = true;
@@ -315,8 +315,6 @@ void quickstop_stepper() {
   set_current_from_steppers_for_axis(ALL_AXES);
   SYNC_PLAN_POSITION_KINEMATIC();
 }
-
-#include "gcode/control/T.h"
 
 #if ENABLED(USE_CONTROLLER_FAN)
 
